@@ -24,14 +24,14 @@ public class DSerpuloPlanet{
             clearSectorOnLose = true; //test
 
             launchCapacityMultiplier = 0.5f;
-            sectorSeed = 2;
+            sectorSeed = -1;
             allowWaves = true;
             allowWaveSimulation = true;
             allowSectorInvasion = true;
             allowLaunchSchematics = true;
             enemyCoreSpawnReplace = true;
             allowLaunchLoadout = true;
-            //doesn't play well with configs
+            //doesn't play well with cdonfigs
             prebuildBase = false;
             ruleSetter = r -> {
                 r.waveTeam = Team.crux;
