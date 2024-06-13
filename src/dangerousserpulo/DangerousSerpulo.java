@@ -54,6 +54,8 @@ public class DangerousSerpulo extends Mod{
                         Events.fire(new EventType.SectorInvasionEvent(sector));
                     }
 
+                    if(!sector.hasBase() && !sector.hasEnemyBase() && sector.hasSave())
+                        sector.save.delete();
                     sector.saveInfo();
                 }
             }
@@ -90,13 +92,7 @@ public class DangerousSerpulo extends Mod{
 
 
         Events.run(EventType.Trigger.update, () -> {
-            for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
-                if (element.getMethodName().equals("runTurn"))
-                    DangerousSerpulo.this.dSRunTurn();
-
-                DSLogInfo("element processing");
-            }
-
+            dSRunTurn();
             DSLogInfo("update trigger has been counted");
         });
     }
