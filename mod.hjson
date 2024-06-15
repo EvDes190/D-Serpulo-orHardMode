@@ -1,10 +1,17 @@
-displayName: "Dangerous Serpulo"
-author: "EvDes"
-name: "dangerous-serpulo"
-main: "dangerousserpulo.DangerousSerpulo"
-description: "router"
-version: "0.1"
+displayName: "Dangerous Serpulo",
+author: "EvDes",
+name: "dangerous-serpulo",
+main: "dangerousserpulo.DangerousSerpulo",
+description: "
+Мод добавляет усложненную версию Серпуло. Изменения:
 
-java: true
+        -Все второстепенные сектора имеют вражеские базы и истребляющую сложность.
+        -Сектор мгновенно оказывается аттакованным после захвата, если рядом есть вражеские базы (не влияет на сюжетные сектора).
+        -Сектор полностью очищается после потери.
+        -Сектор имеет маленький шанс потеряться, даже если не имеет рядом вражеских баз.
+",
+version: "0.9",
+
+java: true,
 
 minGameVersion: 145

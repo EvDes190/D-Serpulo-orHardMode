@@ -12,6 +12,7 @@ import mindustry.content.*;
 public class DSerpuloPlanet{
     public static Planet dserpulo;
 
+    //this Serpulo config
     public static void load(){
             dserpulo = new Planet("DangerousSerpulo", Planets.sun, 1f, 3){{
             generator = new DSerpuloPlanetGenerator();
@@ -21,8 +22,6 @@ public class DSerpuloPlanet{
                     new HexSkyMesh(this, 1, 0.6f, 0.16f, 5, Color.white.cpy().lerp(Pal.spore, 0.55f).a(0.75f), 2, 0.45f, 1f, 0.41f)
             );
 
-            clearSectorOnLose = true; //test
-
             launchCapacityMultiplier = 0.5f;
             sectorSeed = -1;
             allowWaves = true;
@@ -31,7 +30,6 @@ public class DSerpuloPlanet{
             allowLaunchSchematics = true;
             enemyCoreSpawnReplace = true;
             allowLaunchLoadout = true;
-            //doesn't play well with cdonfigs
             prebuildBase = false;
             ruleSetter = r -> {
                 r.waveTeam = Team.crux;

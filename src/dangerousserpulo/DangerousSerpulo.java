@@ -3,13 +3,11 @@ package dangerousserpulo;
 import arc.*;
 import arc.math.Mathf;
 import arc.util.*;
-import mindustry.Vars;
 import mindustry.core.GameState;
 import mindustry.game.EventType;
 import mindustry.gen.Call;
 import mindustry.mod.*;
 import dangerousserpulo.content.*;
-import mindustry.type.Planet;
 import mindustry.type.Sector;
 
 import static arc.Core.app;
@@ -17,26 +15,30 @@ import static mindustry.Vars.*;
 
 public class DangerousSerpulo extends Mod{
 
-    String tag = "DS";
+    public final String tag = "DS";
+    public String name;
 
     void DSLogInfo(String text) {
         app.post(() -> Log.info("[" + tag +"] " + text));
     }
 
-    public DangerousSerpulo() {
-        DSLogInfo("main method has been declared");
-    }
+    public DangerousSerpulo() {}
 
     private void dSRunTurn() {
-        DSLogInfo("dSRunTurn method has been declared");
 
-        for (Planet planet : content.planets()) {
-            if (planet.name.equals("DangerousSerpulo")) {
-                for (Sector sector : planet.sectors) {
-                    if (sector.hasBase() && !sector.isAttacked() && sector.info.hasSpawns && sector.preset == null) {
+        if(state.isCampaign() && state.getPlanet() == DSerpuloPlanet.dserpulo) {
+            for (Sector sector : state.getPlanet().sectors) {
+
+                //Instantly invasion on a captured sectors
+                if (sector.hasBase()
+                    && !sector.isAttacked()
+                    && sector.info.hasSpawns
+                    && sector.preset == null
+                )   {
                         int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ?
                                 state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
 
+                        DSLogInfo("" + waveMax);
                         if (sector.isBeingPlayed()) {
                             state.rules.winWave = waveMax;
                             state.rules.waves = true;
@@ -54,10 +56,22 @@ public class DangerousSerpulo extends Mod{
                         Events.fire(new EventType.SectorInvasionEvent(sector));
                     }
 
-                    if(!sector.hasBase() && !sector.hasEnemyBase() && sector.hasSave())
-                        sector.save.delete();
-                    sector.saveInfo();
+
+                //Any sector is destroyed by 1/100000 chance when you're not there.
+                if(sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.99999) {
+                    sector.info.attack = true;
+                    Events.fire(new EventType.SectorInvasionEvent(sector));
+
+                    Events.fire(new EventType.SectorLoseEvent(sector));
+
+                    sector.info.items.clear();
+                    sector.info.damage = 1f;
+                    sector.info.hasCore = false;
+                    sector.info.production.clear();
+
                 }
+
+                sector.saveInfo();
             }
         }
     }
@@ -65,47 +79,39 @@ public class DangerousSerpulo extends Mod{
 
     @Override
     public void init() {
-        DSLogInfo("init method has been declared");
-        Log.info("test");
+        //Cleared sector after lose
         Events.on(EventType.SectorLoseEvent.class, e -> {
-            if(e.sector.planet == DSerpuloPlanet.dserpulo)
+            if(e.sector.planet == DSerpuloPlanet.dserpulo && e.sector.preset == null) {
+                name = e.sector.info.name;
                 e.sector.save.delete();
-
-            DSLogInfo("sector" + e.sector.info.name + "has been cleared");
+                DSLogInfo("sector " + name + " has been cleared by SectorLoseEvent");
+            }
         });
-        Events.on(EventType.SectorInvasionEvent.class, e -> {
-            if(e.sector.planet == DSerpuloPlanet.dserpulo)
-                e.sector.save.delete();
+        Events.on(EventType.GameOverEvent.class, e -> {
+            GameState s = state;
+            name = state.getSector().name();
+            if(s.isCampaign() && s.getPlanet() == DSerpuloPlanet.dserpulo && s.getSector().preset == null) {
+                state.getSector().save.delete();
+                state.rules.sector.save = null;
+                state.rules.sector.info.attack = true;
+                state.rules.sector.info.items.clear();
+                state.rules.sector.info.damage = 1f;
+                state.rules.sector.info.hasCore = false;
+                state.rules.sector.info.production.clear();
 
-            DSLogInfo("sector" + e.sector.info.name + "has been cleared");
+                DSLogInfo("sector " + name + " has been cleared by GameOverEvent");
+            }
         });
 
-        //TODO fix that
-        Events.on(EventType.LoseEvent.class, e -> {
-            GameState s = Vars.state;
-            if(s.isCampaign() && s.getPlanet() == DSerpuloPlanet.dserpulo)
-                s.getSector().save.delete();
+        Events.run(EventType.Trigger.update, this::dSRunTurn);
 
-            DSLogInfo("sector" + s.getSector().info.name + "has been cleared");
-        });
-
-
-
-        Events.run(EventType.Trigger.update, () -> {
-            dSRunTurn();
-            DSLogInfo("update trigger has been counted");
-        });
     }
+
 
     @Override
     public void loadContent(){
-
         DSerpuloPlanet.load();
         DSerpuloSectorPresets.load();
         DSerpuloTechTree.load();
-
-        Log.info("Loading some example content.");
-        Log.info("test");
     }
-
 }
