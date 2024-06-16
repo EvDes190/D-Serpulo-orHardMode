@@ -35,4 +35,3 @@ java: true,
 
 version: "0.9",
 minGameVersion: 145,
-hidden: true
