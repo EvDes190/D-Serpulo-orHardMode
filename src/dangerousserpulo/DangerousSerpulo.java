@@ -17,6 +17,7 @@ public class DangerousSerpulo extends Mod{
 
     public final String tag = "DS";
     public String name;
+    private int steps =0;
 
     void DSLogInfo(String text) {
         app.post(() -> Log.info("[" + tag +"] " + text));
@@ -25,6 +26,7 @@ public class DangerousSerpulo extends Mod{
     public DangerousSerpulo() {}
 
     private void dSRunTurn() {
+        steps++;
 
         if(state.isCampaign() && state.getPlanet() == DSerpuloPlanet.dserpulo) {
             for (Sector sector : state.getPlanet().sectors) {
@@ -57,8 +59,10 @@ public class DangerousSerpulo extends Mod{
                     }
 
 
-                //Any sector is destroyed by 1/100000 chance when you're not there.
-                if(sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.99999) {
+                //Any sector is destroyed by 1/1000000 chance every second when you're not there .
+                if(steps > 60 && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.999999) {
+                    steps = 0;
+
                     sector.info.attack = true;
                     Events.fire(new EventType.SectorInvasionEvent(sector));
 

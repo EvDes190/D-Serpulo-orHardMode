@@ -1,4 +1,4 @@
-name: "dangerous-serpulo",
+name: "ds",
 displayName: "Dangerous Serpulo",
 subtitle: "Added a Very difficult version of Serpulo"
 description: '''
@@ -13,6 +13,7 @@ The mod was created for a people with no life.
         -Сектора [red]полностью [white]очищается после потери.
         -Сектор имеет [red]маленький шанс [white]потеряться, даже если не имеет рядом вражеских баз.
 
+Советую сбросить исследования перед игрой на новой планете.
 [red]Мод находится на стадии тестирования.[blue] Вы можете дать идей для улучшения мода в GitHub или в Discord - evdes#0000.
 
 --------------------------
@@ -24,6 +25,7 @@ Eng: The mod adds a complicated version of [#5932eb]Serpulo[red]. Changes:
         -The sector is [red]fully cleared [white]after lose.
         -The sector has a [red]small chance [white]of getting lost, even if it does not have any enemy bases nearby.
 
+I advise you to reset your researches before playing on a new planet.
 [red]The mod is at the testing stage.[white] You can give ideas for improving the mod in GitHub or in Discord - evdes#0000.
 ''',
 author: "EvDes",
@@ -32,4 +34,5 @@ main: "dangerousserpulo.DangerousSerpulo",
 java: true,
 
 version: "0.9",
-minGameVersion: 145
+minGameVersion: 145,
+hidden: true
