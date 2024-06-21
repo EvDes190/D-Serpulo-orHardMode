@@ -20,7 +20,7 @@ public class DangerousSerpulo extends Mod{
     private int steps =0;
 
     void DSLogInfo(String text) {
-        app.post(() -> Log.info("[" + tag +"] " + text));
+        Log.info("[" + tag +"] " + text);
     }
 
     public DangerousSerpulo() {}
@@ -60,7 +60,7 @@ public class DangerousSerpulo extends Mod{
 
 
                 //Any sector is destroyed by 1/1000000 chance every second when you're not there .
-                if(steps > 60 && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.999999) {
+                if(steps > 60 && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.9999999) {
                     steps = 0;
 
                     sector.info.attack = true;
