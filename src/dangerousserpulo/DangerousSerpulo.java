@@ -10,7 +10,6 @@ import mindustry.mod.*;
 import dangerousserpulo.content.*;
 import mindustry.type.Sector;
 
-import static arc.Core.app;
 import static mindustry.Vars.*;
 
 public class DangerousSerpulo extends Mod{
@@ -19,11 +18,11 @@ public class DangerousSerpulo extends Mod{
     public String name;
     private int steps =0;
 
+    public DangerousSerpulo() {}
+
     void DSLogInfo(String text) {
         Log.info("[" + tag +"] " + text);
     }
-
-    public DangerousSerpulo() {}
 
     private void dSRunTurn() {
         steps++;
@@ -36,31 +35,12 @@ public class DangerousSerpulo extends Mod{
                     && !sector.isAttacked()
                     && sector.info.hasSpawns
                     && sector.preset == null
-                )   {
-                        int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ?
-                                state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
+                ) {
+                    sectorInvasion(sector);
+                }
 
-                        DSLogInfo("" + waveMax);
-                        if (sector.isBeingPlayed()) {
-                            state.rules.winWave = waveMax;
-                            state.rules.waves = true;
-                            state.rules.attackMode = false;
-
-                            if (net.server())
-                                Call.setRules(state.rules);
-                        } else {
-                            sector.info.winWave = waveMax;
-                            sector.info.waves = true;
-                            sector.info.attack = false;
-                            sector.saveInfo();
-                        }
-
-                        Events.fire(new EventType.SectorInvasionEvent(sector));
-                    }
-
-
-                //Any sector is destroyed by 1/1000000 chance every second when you're not there .
-                if(steps > 60 && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.9999999) {
+                //Rare invasions or lost
+                if(steps > 60 && sector.preset != null && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.9999999) {
                     steps = 0;
 
                     sector.info.attack = true;
@@ -73,6 +53,8 @@ public class DangerousSerpulo extends Mod{
                     sector.info.hasCore = false;
                     sector.info.production.clear();
 
+                } else if(steps > 60 && sector.hasBase() && sector.isCaptured() && Math.random() > 0.9999997) {
+                    sectorInvasion(sector);
                 }
 
                 sector.saveInfo();
@@ -118,4 +100,27 @@ public class DangerousSerpulo extends Mod{
         DSerpuloSectorPresets.load();
         DSerpuloTechTree.load();
     }
+
+    public void sectorInvasion(Sector sector) {
+        int waveMax = Math.max(sector.info.winWave, sector.isBeingPlayed() ?
+                state.wave : sector.info.wave + sector.info.wavesPassed) + Mathf.random(2, 4) * 5;
+
+        DSLogInfo("" + waveMax);
+        if (sector.isBeingPlayed()) {
+            state.rules.winWave = waveMax;
+            state.rules.waves = true;
+            state.rules.attackMode = false;
+
+            if (net.server())
+                Call.setRules(state.rules);
+        } else {
+            sector.info.winWave = waveMax;
+            sector.info.waves = true;
+            sector.info.attack = false;
+            sector.saveInfo();
+        }
+
+        Events.fire(new EventType.SectorInvasionEvent(sector));
+    }
+
 }
