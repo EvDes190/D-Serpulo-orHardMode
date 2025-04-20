@@ -1,19 +1,71 @@
 package dangerousserpulo.content;
 
+import dangerousserpulo.DangerousSerpulo;
 import mindustry.type.*;
 import dangerousserpulo.type.*;
+
+import static mindustry.content.Planets.serpulo;
 
 public class DSerpuloSectorPresets{
     public static SectorPreset
             dsgroundZero,
-            dscraters, dsbiomassFacility, dsfrozenForest, dsruinousShores, dswindsweptIslands, dsstainedMountains, dstarFields,
-            dsfungalPass, dsextractionOutpost, dssaltFlats, dsovergrowth,
+            dscraters, dsbiomassFacility, dstaintedWoods, dsfrozenForest, dsruinousShores, dsfacility32m, dswindsweptIslands, dsstainedMountains, dstarFields,
+            dsfrontier, dsfungalPass, dsinfestedCanyons, dsatolls, dsmycelialBastion, dsextractionOutpost, dssaltFlats, dstestingGrounds, dsovergrowth, //polarAerodrome,
             dsimpact0078, dsdesolateRift, dsnuclearComplex, dsplanetaryTerminal,
-            dscoastline, dsnavalFortress;
+            dscoastline, dsnavalFortress, dsweatheredChannels, dsseaPort,
+
+    dsgeothermalStronghold, dscruxscape;
 
     public static void load(){
 
         if(DSerpuloPlanet.dserpulo == null) return;
+        dstaintedWoods = new SectorPreset("taintedWoods", DSerpuloPlanet.dserpulo, 221){{
+            captureWave = 33;
+            difficulty = 5;
+        }};
+
+        dsinfestedCanyons = new SectorPreset("infestedCanyons", DSerpuloPlanet.dserpulo, 210){{
+            difficulty = 4;
+        }};
+
+        dstestingGrounds = new SectorPreset("testingGrounds", DSerpuloPlanet.dserpulo, 3){{
+            difficulty = 7;
+            captureWave = 33;
+        }};
+
+        dsweatheredChannels = new SectorPreset("weatheredChannels", DSerpuloPlanet.dserpulo, 39){{
+            captureWave = 40;
+            difficulty = 9;
+        }};
+
+        dsfrontier = new SectorPreset("frontier", DSerpuloPlanet.dserpulo, 50){{
+            difficulty = 4;
+        }};
+
+        dsatolls = new SectorPreset("atolls", DSerpuloPlanet.dserpulo, 1){{
+            difficulty = 7;
+        }};
+
+        dsmycelialBastion = new SectorPreset("mycelialBastion", DSerpuloPlanet.dserpulo, 260){{
+            difficulty = 8;
+        }};
+
+        dsgeothermalStronghold = new SectorPreset("geothermalStronghold", DSerpuloPlanet.dserpulo, 264){{
+            difficulty = 10;
+        }};
+
+        dscruxscape = new SectorPreset("cruxscape", DSerpuloPlanet.dserpulo, 54){{
+            difficulty = 10;
+        }};
+
+        dsseaPort = new SectorPreset("seaPort", DSerpuloPlanet.dserpulo, 47){{
+            difficulty = 4;
+        }};
+
+        dsfacility32m = new SectorPreset("facility32m", DSerpuloPlanet.dserpulo, 64){{
+            captureWave = 25;
+            difficulty = 4;
+        }};
         dsgroundZero = new DSSectorPreset("groundZero", DSerpuloPlanet.dserpulo, 15){{
             alwaysUnlocked = true;
             addStartingItems = true;

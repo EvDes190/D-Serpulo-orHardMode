@@ -1,20 +1,22 @@
 package dangerousserpulo.content;
 
-import arc.graphics.*;
+import arc.graphics.Color;
 import dangerousserpulo.maps.planet.DSerpuloPlanetGenerator;
-import mindustry.game.*;
-import mindustry.graphics.*;
-import mindustry.graphics.g3d.*;
-import mindustry.type.*;
 import mindustry.content.Planets;
-import mindustry.content.*;
+import mindustry.game.Team;
+import mindustry.graphics.Pal;
+import mindustry.graphics.g3d.HexMesh;
+import mindustry.graphics.g3d.HexSkyMesh;
+import mindustry.graphics.g3d.MultiMesh;
+import mindustry.type.Planet;
 
 public class DSerpuloPlanet{
     public static Planet dserpulo;
 
-    //this Serpulo config
+    //TODO add difficulty
     public static void load(){
-            dserpulo = new Planet("DangerousSerpulo", Planets.sun, 1f, 3){{
+
+        dserpulo = new Planet("DangerousSerpulo", Planets.sun, 1f, 3){{
             generator = new DSerpuloPlanetGenerator();
             meshLoader = () -> new HexMesh(this, 6);
             cloudMeshLoader = () -> new MultiMesh(
@@ -23,18 +25,21 @@ public class DSerpuloPlanet{
             );
 
             launchCapacityMultiplier = 0.5f;
-            sectorSeed = -1;
+            sectorSeed = 2;
             allowWaves = true;
+            allowLegacyLaunchPads = true;
             allowWaveSimulation = true;
             allowSectorInvasion = true;
             allowLaunchSchematics = true;
             enemyCoreSpawnReplace = true;
             allowLaunchLoadout = true;
+            //doesn't play well with configs
             prebuildBase = false;
             ruleSetter = r -> {
                 r.waveTeam = Team.crux;
                 r.placeRangeCheck = false;
                 r.showSpawns = false;
+                r.coreDestroyClear = true;
             };
             iconColor = Color.valueOf("7d4dff");
             atmosphereColor = Color.valueOf("3c1b8f");
@@ -42,8 +47,8 @@ public class DSerpuloPlanet{
             atmosphereRadOut = 0.3f;
             startSector = 15;
             alwaysUnlocked = true;
+            allowSelfSectorLaunch = true;
             landCloudColor = Pal.spore.cpy().a(0.5f);
-//            hiddenItems.addAll(Items.erekirItems).removeAll(Items.serpuloItems);
         }};
     }
 
