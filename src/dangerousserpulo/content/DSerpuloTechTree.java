@@ -4,10 +4,7 @@ import arc.struct.*;
 import mindustry.game.Objectives.*;
 
 import static mindustry.content.Blocks.*;
-import static dangerousserpulo.content.DSerpuloSectorPresets.dscraters;
 import static dangerousserpulo.content.DSerpuloSectorPresets.*;
-import static mindustry.content.SectorPresets.*;
-import static mindustry.content.SectorPresets.facility32m;
 import static mindustry.content.TechTree.*;
 import static mindustry.content.UnitTypes.*;
 import mindustry.content.*;

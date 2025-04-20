@@ -1,10 +1,7 @@
 package dangerousserpulo.content;
 
-import dangerousserpulo.DangerousSerpulo;
 import mindustry.type.*;
 import dangerousserpulo.type.*;
-
-import static mindustry.content.Planets.serpulo;
 
 public class DSerpuloSectorPresets{
     public static SectorPreset
