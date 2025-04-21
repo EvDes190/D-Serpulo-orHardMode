@@ -40,20 +40,23 @@ public class DangerousSerpulo extends Mod{
                 }
 
                 //Rare invasions or lost
-                if(steps > 60 && sector.preset != null && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.9999999) {
-                    steps = 0;
-
-                    sector.info.attack = true;
-                    Events.fire(new EventType.SectorInvasionEvent(sector));
-
-                    Events.fire(new EventType.SectorLoseEvent(sector));
-
-                    sector.info.items.clear();
-                    sector.info.damage = 1f;
-                    sector.info.hasCore = false;
-                    sector.info.production.clear();
-
-                } else if(steps > 60 && sector.hasBase() && sector.isCaptured() && Math.random() > 0.9999997) {
+//                if(steps > 60 && sector.preset != null && sector.hasBase() && !sector.isBeingPlayed() && Math.random() > 0.9999999) {
+//                    steps = 0;
+//
+//                    sector.info.attack = true;
+//                    Events.fire(new EventType.SectorInvasionEvent(sector));
+//
+//                    Events.fire(new EventType.SectorLoseEvent(sector));
+//
+//                    sector.info.items.clear();
+//                    sector.info.damage = 1f;
+//                    sector.info.hasCore = false;
+//                    sector.info.production.clear();
+//
+//                } else if(steps > 60 && sector.hasBase() && sector.isCaptured() && Math.random() > 0.9999997) {
+//                    sectorInvasion(sector);
+//                }
+                if(steps > 60 && sector.hasBase() && sector.isCaptured() && Math.random() > 0.999999) {
                     sectorInvasion(sector);
                 }
 
