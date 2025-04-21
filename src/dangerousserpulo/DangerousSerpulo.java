@@ -14,6 +14,9 @@ import static mindustry.Vars.*;
 
 public class DangerousSerpulo extends Mod{
 
+// идеи:
+//    1. спавн юнитов с взрывоопасным ресурсами
+
     public final String tag = "DS";
     public String name;
     private int steps =0;
@@ -70,7 +73,7 @@ public class DangerousSerpulo extends Mod{
     public void init() {
         //Cleared sector after lose
         Events.on(EventType.SectorLoseEvent.class, e -> {
-            if(e.sector.planet == DSerpuloPlanet.dserpulo && e.sector.preset == null) {
+            if(e.sector.planet == DSerpuloPlanet.dserpulo && e.sector.preset == null && state.isCampaign()) {
                 name = e.sector.info.name;
                 e.sector.save.delete();
                 DSLogInfo("sector " + name + " has been cleared by SectorLoseEvent");
