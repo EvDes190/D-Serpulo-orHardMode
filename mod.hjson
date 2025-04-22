@@ -34,4 +34,4 @@ main: "dangerousserpulo.DangerousSerpulo",
 java: true,
 
 version: "0.9.4",
-minGameVersion: 148,
+minGameVersion: 147,
