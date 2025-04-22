@@ -1,6 +1,7 @@
 package dangerousserpulo.content;
 
 import arc.struct.*;
+import dangerousserpulo.DangerousSerpulo;
 import mindustry.game.Objectives.*;
 
 import static mindustry.content.Blocks.*;
@@ -12,7 +13,7 @@ import mindustry.type.ItemStack;
 
 public class DSerpuloTechTree{
     public static void load(){
-        Planets.serpulo.techTree = nodeRoot("dangerous serpulo", coreShard, () -> {
+        DSerpuloPlanet.dserpulo.techTree = nodeRoot("dangerous serpulo", coreShard, () -> {
 
             node(conveyor, () -> {
 
