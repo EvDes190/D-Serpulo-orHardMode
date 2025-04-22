@@ -51,6 +51,8 @@ public class DSerpuloPlanet{
             alwaysUnlocked = true;
             allowSelfSectorLaunch = true;
             landCloudColor = Pal.spore.cpy().a(0.5f);
+
+            shownPlanets.add(this);
         }};
     }
 
