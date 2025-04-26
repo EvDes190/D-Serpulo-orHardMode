@@ -1,7 +1,6 @@
 package dangerousserpulo.content;
 
 import arc.struct.*;
-import dangerousserpulo.DangerousSerpulo;
 import mindustry.game.Objectives.*;
 
 import static mindustry.content.Blocks.*;
