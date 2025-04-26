@@ -40,6 +40,8 @@ public class DSerpuloPlanet{
                 r.placeRangeCheck = false;
                 r.showSpawns = false;
                 r.coreDestroyClear = true;
+
+                campaignRules.apply(this, r);
             };
             iconColor = Color.valueOf("7d4dff");
             atmosphereColor = Color.valueOf("3c1b8f");
@@ -49,6 +51,8 @@ public class DSerpuloPlanet{
             alwaysUnlocked = true;
             allowSelfSectorLaunch = true;
             landCloudColor = Pal.spore.cpy().a(0.5f);
+
+            shownPlanets.add(this);
         }};
     }
 

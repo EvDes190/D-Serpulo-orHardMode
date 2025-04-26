@@ -12,7 +12,7 @@ import mindustry.type.ItemStack;
 
 public class DSerpuloTechTree{
     public static void load(){
-        Planets.serpulo.techTree = nodeRoot("dangerous serpulo", coreShard, () -> {
+        DSerpuloPlanet.dserpulo.techTree = nodeRoot("dangerous serpulo", coreShard, () -> {
 
             node(conveyor, () -> {
 
